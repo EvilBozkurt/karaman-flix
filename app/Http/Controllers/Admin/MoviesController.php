@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\UploadFile;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ArticleResource;
 use App\Http\Resources\CategoryResource;
-use App\Models\Article;
+use App\Http\Resources\MovieResource;
 use App\Models\Category;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
-class MovieController extends Controller
+class MoviesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,10 +21,10 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $articles = Article::with(['category:id,name'])->latest()->simplePaginate(10);
+        $movies = Movie::with(['category:id,name'])->latest()->simplePaginate(10);
 
-        return Inertia::render('Articles/Index', [
-            'articles' => ArticleResource::collection($articles),
+        return Inertia::render('Movies/Index', [
+            'movies' => MovieResource::collection($movies),
         ]);
     }
 
@@ -35,9 +35,9 @@ class MovieController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Articles/Create', [
+        return Inertia::render('Movies/Create', [
             'edit' => false,
-            'article' => new ArticleResource(new Article()),
+            'movie' => new MovieResource(new Movie()),
             'categories' => CategoryResource::collection(Category::select(['id', 'name'])->get()),
         ]);
     }
@@ -48,23 +48,25 @@ class MovieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, UploadFile $uploadFile)
     {
         $data = $request->validate([
             'category_id' => ['required', Rule::exists(Category::class, 'id')],
             'title' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', Rule::unique(Article::class)],
+            'trailer' => ['required', 'string', 'max:255'],
+            'year' => ['required', 'string', 'max:4', 'min:4'],
+            'slug' => ['required', 'string', Rule::unique(Movie::class)],
             'image' => ['required', 'image', 'max:3000'],
             'description' => ['required', 'string'],
         ]);
 
         $data['image'] = $uploadFile->setFile($request->file('image'))
-            ->setUploadPath((new Article())->uploadFolder())
+            ->setUploadPath((new Movie())->uploadFolder())
             ->execute();
 
-        Article::create($data);
+        Movie::create($data);
 
-        return redirect()->route('articles.index')->with('success', 'Article saved successfully.');
+        return redirect()->route('movies.index')->with('success', 'Movie saved successfully.');
     }
 
     /**
@@ -86,9 +88,9 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
-        return Inertia::render('Articles/Create', [
+        return Inertia::render('Movies/Create', [
             'edit' => true,
-            'article' => new ArticleResource($article),
+            'movie' => new MovieResource($movie),
             'categories' => CategoryResource::collection(Category::select(['id', 'name'])->get()),
         ]);
     }
@@ -100,28 +102,30 @@ class MovieController extends Controller
      * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Movie $movie)
+    public function update(Request $request, Movie $movie, UploadFile $uploadFile)
     {
         $data = $request->validate([
             'category_id' => ['required', Rule::exists(Category::class, 'id')],
             'title' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', Rule::unique(Article::class)->ignore($article->id)],
+            'trailer' => ['required', 'string', 'max:255'],
+            'year' => ['required', 'string', 'max:4', 'min:4'],
+            'slug' => ['required', 'string', Rule::unique(Movie::class)->ignore($movie->id)],
             'image' => ['nullable', 'image', 'max:3000'],
             'description' => ['required', 'string'],
         ]);
 
-        $data['image'] = $article->image;
+        $data['image'] = $movie->image;
         if ($request->file('image')) {
-            $article->deleteImage();
+            $movie->deleteImage();
 
             $data['image'] = $uploadFile->setFile($request->file('image'))
-                ->setUploadPath($article->uploadFolder())
+                ->setUploadPath($movie->uploadFolder())
                 ->execute();
         }
 
-        $article->update($data);
+        $movie->update($data);
 
-        return redirect()->route('articles.index')->with('success', 'Article updated successfully.');
+        return redirect()->route('movies.index')->with('success', 'Movie updated successfully.');
     }
 
     /**
@@ -132,10 +136,10 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
-        $article->deleteImage();
-        $article->delete();
+        $movie->deleteImage();
+        $movie->delete();
 
-        return redirect()->route('articles.index')
-            ->with('success', 'Article deleted successfully.');
+        return redirect()->route('movies.index')
+            ->with('success', 'Movie deleted successfully.');
     }
 }

@@ -5,21 +5,21 @@
     </template>
 
     <Container>
-      <jet-button :href="route('articles.create')">Add new</jet-button>
+      <jet-button :href="route('movies.create')">Add new</jet-button>
 
       <Card class="mt-4">
         <AppTable :headers="headers"
-                  :items="articles">
-          <tr v-for="article in articles.data"
-              :key="article.id">
-            <td>{{ article.title }}</td>
-            <td>{{ article.category.name }}</td>
-            <td>{{ article.created_at_for_human }}</td>
+                  :items="movies">
+          <tr v-for="movie in movies.data"
+              :key="movie.id">
+            <td>{{ movie.title }}</td>
+            <td>{{ movie.category.name }}</td>
+            <td>{{ movie.created_at_for_human }}</td>
             <td>
               <div class="flex items-center justify-end space-x-2">
-                <EditBtn :url="route('articles.edit', {article: article.id})" />
-                <DeleteBtn :url="route('articles.destroy', {article: article.id})"
-                           module-name="article" />
+                <EditBtn :url="route('movies.edit', {movie: movie.id})" />
+                <DeleteBtn :url="route('movies.destroy', {movie: movie.id})"
+                           module-name="movie" />
               </div>
             </td>
           </tr>
@@ -42,7 +42,7 @@ import JetButton from "@/Jetstream/Button";
 
 export default {
   props: {
-    articles: {},
+    movies: {},
   },
 
   components: {
@@ -79,7 +79,7 @@ export default {
     breadcrumbs() {
       return [
         {
-          label: "Articles",
+          label: "Movies",
         },
       ];
     },

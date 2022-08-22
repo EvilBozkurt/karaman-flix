@@ -13,6 +13,9 @@ class Movie extends Model implements ImageableContract
     use HasFactory;
     use Imageable;
 
+    /**
+     * @var mixed
+     */
     protected $guarded = ['id'];
 
     public function uploadFolder(): string

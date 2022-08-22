@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SettingsController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Admin\MoviesController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -20,4 +22,5 @@ Route::middleware(['auth', 'verified'])
         Route::post('settings/save-contact', [SettingsController::class, 'saveContact'])->name('settings.save-contact');
         Route::resource('categories', CategoriesController::class);
         Route::resource('articles', ArticlesController::class);
+        Route::resource('movies', MoviesController::class);
     });

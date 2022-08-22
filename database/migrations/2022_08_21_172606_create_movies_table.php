@@ -24,8 +24,8 @@ class CreateMoviesTable extends Migration
             $table->longText('description');
 
             $table->string('image');
-            $table->string('trailer');
-            $table->string('year');
+            $table->string('trailer')->nullable()->default('test');
+            $table->string('year')->nullable()->default('2022');
 
             $table->timestamps();
         });
