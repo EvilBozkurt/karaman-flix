@@ -20,7 +20,7 @@ class Movie extends Model implements ImageableContract
 
     public function uploadFolder(): string
     {
-        return "movies";
+        return "public/movies";
     }
 
     public function category(): BelongsTo

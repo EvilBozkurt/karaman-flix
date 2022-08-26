@@ -17,7 +17,7 @@ class MoviesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function index()
     {
@@ -31,7 +31,7 @@ class MoviesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function create()
     {
@@ -46,7 +46,7 @@ class MoviesController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, UploadFile $uploadFile)
     {
@@ -84,7 +84,7 @@ class MoviesController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Movie  $movie
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function edit(Movie $movie)
     {
@@ -100,7 +100,7 @@ class MoviesController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Movie  $movie
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Movie $movie, UploadFile $uploadFile)
     {
@@ -132,7 +132,7 @@ class MoviesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Movie  $movie
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Movie $movie)
     {
