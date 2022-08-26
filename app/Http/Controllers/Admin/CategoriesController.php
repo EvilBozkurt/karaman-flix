@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCategoryFormRequest;
+use App\Http\Requests\UpdateCategoryFormRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -26,13 +28,15 @@ class CategoriesController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreCategoryFormRequest $request)
     {
-        $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', Rule::unique(Category::class)]
-        ]);
+//        $data = $request->validate([
+//            'name' => ['required', 'string', 'max:255'],
+//            'slug' => ['required', 'string', Rule::unique(Category::class)]
+//        ]);
 
+
+        $data = $request->validated();
         Category::create($data);
 
         return redirect()->route('categories.index')->with('success', 'Category saved successfully.');
@@ -46,12 +50,9 @@ class CategoriesController extends Controller
         ]);
     }
 
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryFormRequest $request, Category $category)
     {
-        $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', Rule::unique(Category::class)->ignore($category->id)]
-        ]);
+        $data = $request->validated();
 
         $category->update($data);
 
