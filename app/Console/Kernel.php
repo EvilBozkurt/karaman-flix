@@ -25,6 +25,13 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+
+        // get cron expression from config
+        $expression = config('movie-seeder.configurable_interval_timer');
+
+        // register commands to run on schedule
+        $schedule->command('genre:seed')->cron($expression);
+        $schedule->command('movie:seed')->cron($expression);
     }
 
     /**

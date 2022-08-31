@@ -4,8 +4,69 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3a1b632c5e3cd07cb12e536a527efbac",
+    "content-hash": "cbdbd502a6d65970609c9ba7ff6e9dfc",
     "packages": [
+        {
+            "name": "arsangamal/movie-seeder",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/arsangamal/movie-seeder.git",
+                "reference": "4169095d28d5042ca65d28c11187580ae71726b1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/arsangamal/movie-seeder/zipball/4169095d28d5042ca65d28c11187580ae71726b1",
+                "reference": "4169095d28d5042ca65d28c11187580ae71726b1",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.3",
+                "illuminate/support": "~7|~8"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~5|~6",
+                "phpunit/phpunit": "~9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Arsangamal\\MovieSeeder\\MovieSeederServiceProvider"
+                    ],
+                    "aliases": {
+                        "MovieSeeder": "Arsangamal\\MovieSeeder\\Facades\\MovieSeeder"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Arsangamal\\MovieSeeder\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Arsan Gamal",
+                    "email": "arsan.gamal@hotmail.com",
+                    "homepage": "https://github.com/arsangamal/"
+                }
+            ],
+            "description": "Seeding movies from TMDB has never been easier",
+            "homepage": "https://github.com/arsangamal/movie-seeder",
+            "keywords": [
+                "MovieSeeder",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/arsangamal/movie-seeder/issues",
+                "source": "https://github.com/arsangamal/movie-seeder/tree/v1.0.0"
+            },
+            "time": "2021-06-05T21:45:03+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "v2.1.1",
