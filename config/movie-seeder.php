@@ -16,7 +16,7 @@ return [
      *
      * @example 100
      */
-    'num_of_records' => 100,
+    'num_of_records' => 50,
 
 
     /**
