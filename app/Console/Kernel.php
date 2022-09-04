@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
 
         // get cron expression from config
-        $expression = config('movie-seeder.configurable_interval_timer');
+        $expression = config('movie-seeder.configurable_interval_timer.num_of_records.api_key');
 
         // register commands to run on schedule
         $schedule->command('genre:seed')->cron($expression);

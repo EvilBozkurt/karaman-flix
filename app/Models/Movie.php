@@ -13,6 +13,9 @@ class Movie extends Model implements ImageableContract
     use HasFactory;
     use Imageable;
 
+    protected $table = "movies";
+    private $relationshipTable;
+
     /**
      * @var mixed
      */

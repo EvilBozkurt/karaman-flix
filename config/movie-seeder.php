@@ -24,7 +24,7 @@ return [
      *
      * @example '123456789abcdefgh'
      */
-    'api_key' => '',
+    'api_key' => '9731706dc39c851e11ba693eb7859422',
 
 
     'tables' => [
